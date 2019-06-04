@@ -7,8 +7,8 @@
 > + I use tfrecords foramt data to create input-pipeline.To create tfrecords format training data, run the script datasets.py by:
 
 > 
-```python
-python datasets.py --train_datasets ~/your/datasets/dir ~/dest/dir --nrof_imgs_per_file 50000
+```bash
+  python datasets.py --train_datasets ~/your/datasets/dir ~/dest/dir --nrof_imgs_per_file 50000
 ```
 
 # TODO
