@@ -119,10 +119,3 @@ def main(args):
 if __name__ == "__main__":
     args = parse_arguments(sys.argv[1:])
     main(args)
-    print('hello')
-
-    # create_tfrecord_data(src_dir='../datasets/vggface2/train',dest_dir='../train_tfrcd1')
-    # train_ds=create_datasets_from_tfrecord('../train_tfrcd')
-    # for images,ids in train_ds:
-    #     pprint.pprint(images.shape)
-    #     pprint.pprint(ids.shape)
