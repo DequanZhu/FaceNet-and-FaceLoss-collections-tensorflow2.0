@@ -15,8 +15,7 @@ from progressbar import *
 # tf.debugging.set_log_device_placement(True)
 
 @tf.function()
-def train_one_step(model, train_acc_metric, loss_fun, optimizer,
-                   batch_examples, center_loss_weight):
+def train_one_step(model, train_acc_metric, loss_fun, optimizer,batch_examples, center_loss_weight):
     with tf.GradientTape() as tape:
         batch_images,batch_labels=batch_examples
         outputs = model(batch_images)
@@ -33,7 +32,7 @@ def train_one_step(model, train_acc_metric, loss_fun, optimizer,
 
 
 def train(opt):
-    facenet = FaceNet(opt, num_classes=opt.nrof_classes)
+    facenet = FaceNet(opt)
     model = facenet.model
     lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(opt.learning_rate,
                                                                 decay_steps=10000,
