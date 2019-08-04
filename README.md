@@ -12,7 +12,9 @@
 ```
 
 # TODO
-- [ ] To implement triple-loss, Large-Margin Softmax Loss, Additive Margin Loss, Large Margin Cosine Loss.
+- [x] To implement  Center Loss, Large-Margin Softmax Loss, SphereFace Loss, Additive Margin Loss, AM-Softmax, ArcFace Loss .
 - [ ] Train on single GPU and distribute-training.
+- [ ] Test and compare different loss.  
+- [ ] Clean the code.
 
 
