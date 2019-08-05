@@ -5,9 +5,6 @@ import os
 import random
 import numpy as np
 from scipy.special import binom
-BATCH_SIZE = 128
-IMG_SIZE=[299,299]
-
 
 def check_folder(dir_name):
     if not os.path.exists(dir_name):
