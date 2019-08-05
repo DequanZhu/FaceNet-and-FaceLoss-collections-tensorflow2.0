@@ -32,3 +32,13 @@ class FaceNet():
         model = keras.Model(inputs=inputs, outputs=embedding)
         model.summary()
         return model
+      
+      
+if __name__=="__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--model-name',type=str, default='Resnet50')
+    parser.add_argument('--image-size',type=int, default=160)
+    parser.add_argument('--num_classes',type=int, default=100)
+    parser.add_argument('--embedding_size',type=int, default=512)
+    opt = parser.parse_args()
+    model=FaceNet(opt)
