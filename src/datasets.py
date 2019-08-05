@@ -103,10 +103,10 @@ def create_tfrecord_data(src_dir, dest_dir,nrof_imgs_per_file,split_ratio=0.95):
 def create_datasets_from_tfrecord(tfrcd_dir,batch_size=32,phase='train'):
     if phase=='train':
         df=pd.read_csv(os.path.join(tfrcd_dir,'info.csv'))
-        nrof_samples=df['train_num']
+        nrof_samples=df['train_num'][0]
     if phase=='val':
         df=pd.read_csv(os.path.join(tfrcd_dir,'info.csv'))
-        nrof_samples=df['val_num']
+        nrof_samples=df['val_num'][0]
     
     file_paths = os.listdir(os.path.join(tfrcd_dir,phase))
     file_paths = [os.path.join(tfrcd_dir, phase, file_path)for file_path in file_paths]
