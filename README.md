@@ -8,7 +8,7 @@
 
 > 
 ```bash
-  python datasets.py --train_datasets ~/your/datasets/dir ~/dest/dir --nrof_imgs_per_file 50000
+  python datasets.py --src_dir ~/your/datasets/dir --dest_dir ~/your/dest/dir --nrof_imgs_per_file 50000
 ```
 
 # TODO
