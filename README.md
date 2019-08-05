@@ -12,9 +12,11 @@
 ```
 
 # TODO
+- [x] Provide train code in vggface2 datasets using softmax.
 - [x] To implement  CenterLoss, LSoftmaxLoss, L2SoftmaxLoss,  AMSoftmaxLoss,  ASoftmaxLoss, ArcFaceSoftmaxLoss.
-- [ ] Train on single GPU and distribute-training.
-- [ ] Test and compare different loss.  
-- [ ] Clean the code.
+- [ ] Provide test code which use LFW datasets.
+- [ ] Train some models using different backbone and diffrent loss fun in two.
+- [ ] Compare and analysis different loss type.  
+- [ ] Refactor and clean the code.
 
 
