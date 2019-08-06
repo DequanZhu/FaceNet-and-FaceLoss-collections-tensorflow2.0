@@ -1,5 +1,5 @@
 # Description
-> This repository implements facenet using tensorflow2.0-keras api and in eager-mode .The project is still undergo.The code is just veritify in   cpu mode and gpu-run support will come soon.
+> This repository implements facenet using tensorflow2.0-keras api and in eager-mode supporting different backbones and different loss types. The project is still undergo. 
 
 # How to use
 > + [Install tensorflow2.0-beta1 version.](https://tensorflow.google.cn/install/pip)
