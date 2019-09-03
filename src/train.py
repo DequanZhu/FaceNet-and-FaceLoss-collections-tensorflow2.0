@@ -47,7 +47,7 @@ class Trainer(object):
             features = self.model(batch_images)
             embedding = tf.math.l2_normalize(features, axis=1, epsilon=1e-10)
             logits = loss_layer(embedding, batch_labels)
-            loss = SparseCategoricalCrossentropy()(batch_labels, logits)
+            loss = SparseCategoricalCrossentropy(from_logits=True)(batch_labels, logits)
             train_acc_metric(batch_labels, logits)
         gradients = tape.gradient(loss, self.model.trainable_variables)
         self.optimizer.apply_gradients(zip(gradients, self.model.trainable_variables))
