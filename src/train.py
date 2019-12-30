@@ -17,7 +17,7 @@ from progressbar import *
 class Trainer(object):
     def __init__(self, args):
         self.args=args
-        self.model = FaceNet(args.backbone, args.image_size, args.embedding_size, args.nrof_classes).model
+        self.model = FaceNet(args).model
         self.train_datasets, self.nrof_train = create_datasets_from_tfrecord(tfrcd_dir=args.datasets,
                                                                              batch_size = args.batch_size,
                                                                              phase='train')
@@ -41,7 +41,7 @@ class Trainer(object):
         self.train_summary_writer = tf.summary.create_file_writer(args.log_dir)
 
     # @tf.function()
-    def train_one_step(self, train_acc_metric, loss_layer, batch_examples):
+    def train_one_step(self, train_acc_metric, loss_layer, batch_examples, trainable_variables):
         with tf.GradientTape() as tape:
             batch_images, batch_labels = batch_examples
             features = self.model(batch_images)
@@ -49,18 +49,21 @@ class Trainer(object):
             logits = loss_layer(embedding, batch_labels)
             loss = SparseCategoricalCrossentropy(from_logits=True)(batch_labels, logits)
             train_acc_metric(batch_labels, logits)
-        gradients = tape.gradient(loss, self.model.trainable_variables)
-        self.optimizer.apply_gradients(zip(gradients, self.model.trainable_variables))
+        gradients = tape.gradient(loss, trainable_variables)
+        self.optimizer.apply_gradients(zip(gradients, trainable_variables))
         return loss
 
     def training(self, epoch):
         opt = self.args
         loss_layer = ArcFaceSoftmaxLinear(opt.nrof_classes, opt.embedding_size, opt.margin, opt.feature_scale)
+        trainable_variables=[]
+        trainable_variables.extend(loss_layer.trainable_variables)
+        trainable_variables.extend(self.model.trainable_variables)
         train_acc_metric = SparseCategoricalAccuracy()
         widgets = ['train :', Percentage(), ' ', Bar('#'), ' ',Timer(), ' ', ETA(), ' ']
         pbar = ProgressBar(widgets=widgets, max_value=int(self.nrof_train//opt.batch_size)+1).start()
         for batch_id, batch_examples in pbar(enumerate(self.train_datasets)):
-            loss = self.train_one_step(train_acc_metric, loss_layer, batch_examples)
+            loss = self.train_one_step(train_acc_metric, loss_layer, batch_examples, trainable_variables)
             with self.train_summary_writer.as_default():
                 tf.summary.scalar('total_loss', loss, self.checkpoint.n_iter)
             self.checkpoint.n_iter.assign_add(1)
