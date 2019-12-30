@@ -14,11 +14,10 @@ model_sets = {'InceptionResNetV2': keras.applications.InceptionResNetV2,
 class FaceNet():
     def __init__(self, opt):
         super(FaceNet, self).__init__()
-        self.model_name = opt.model_name
-        self.model = self.create_model(self.model_name, opt.image_size, opt.embedding_size, opt.num_classes)
+        self.model = self.create_model(opt.backbone, opt.image_size, opt.embedding_size, opt.nrof_classes)
 
-    def create_model(self, model_name, input_size, embedding_size,num_classes, include_top=False):
-        base_network = model_sets[model_name](input_shape=(input_size, input_size, 3),
+    def create_model(self, backbone, input_size, embedding_size,num_classes, include_top=False):
+        base_network = model_sets[backbone](input_shape=(input_size, input_size, 3),
                                               include_top=include_top,
                                               weights='imagenet')
 
