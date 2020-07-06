@@ -128,14 +128,14 @@ class CenterLossLinear(layers.Layer):
         super(CenterLossLinear, self).__init__()
         self.alpha = alpha
         self.centers = tf.zeros(shape=[units, input_dim], dtype=tf.float32)
-        self.mse=losses.MeanSquaredError()()
+        self.mse=losses.MeanSquaredError()
         self.fc=layers.Dense(units)
 
     def call(self, embedding, labels):
         centers_batch = tf.gather(self.centers, labels)
         diff = (1 - self.alpha) * (centers_batch - embedding)
         centers = tf.tensor_scatter_nd_sub(self.centers, labels, diff)
-        center_loss=self.mse()
+        center_loss=self.mse(embedding,centers)
         logits=self.fc(embedding)
         return logits, center_loss
 
