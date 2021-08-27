@@ -105,7 +105,7 @@ def create_datasets_from_tfrecord(tfrcd_dir,batch_size=32,phase='train'):
     file_paths = [os.path.join(tfrcd_dir, phase, file_path)for file_path in file_paths]
     AUTOTUNE = tf.data.experimental.AUTOTUNE
     raw_image_dataset = tf.data.TFRecordDataset(file_paths)
-    parsed_image_dataset = raw_image_dataset.map(parse_image_function)
+    parsed_image_dataset = raw_image_dataset.map(parse_image_function,num_parallel_calls=tf.data.experimental.AUTOTUNE)
     datasets = parsed_image_dataset.batch(batch_size).prefetch(AUTOTUNE)
     return datasets,nrof_samples
 
